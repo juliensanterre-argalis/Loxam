@@ -27,6 +27,5 @@ jobs:
         run: |
           sudo apt-get install -y sshpass
           sshpass -p "$SFTP_PASSWORD" sftp -o StrictHostKeyChecking=no -P "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" <<EOF
-          put -r source/ $SFTP_PATH
-          put -r dummy/ $SFTP_PATH
+          put -r . $SFTP_PATH
           EOF
