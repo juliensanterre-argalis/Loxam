@@ -1,0 +1,23 @@
+{
+    "homePage": "custom-home.html",
+    "pages": [
+        {
+            "slug": "qui-sommes-nous",
+            "label": "Qui sommes-nous ?",
+            "menu": true,
+            "children": [
+                { "slug": "le-groupe", "label": "Le Groupe Loxam", "file": "le-groupe.html", "footer": true },
+                { "slug": "centre-formation", "label": "Notre centre de formation", "file": "centre-formation.html", "footer": true },
+                { "slug": "engagements", "label": "Nos engagements", "file": "engagements.html", "footer": true }
+            ]
+        },
+        {
+            "slug": "nous-contacter",
+            "label": "Nous contacter",
+            "file": "nous-contacter.html",
+            "menu": true,
+            "style": "button-outline",
+            "footer": true
+        }
+    ]
+}

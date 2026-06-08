@@ -1,0 +1,198 @@
+<!-- Hero Section avec fond complet basé sur l'image (logo, bande rouge intégrés) -->
+<div class="hero-section" style="position: relative; min-height: 70vh; overflow: hidden; background: #000;">
+  <!-- Image de fond globale (contient la forme rouge, le logo et la photo) -->
+  <div style="position: absolute; inset: 0; z-index: 1;">
+    <img src="./Assets/Page_daccueil_17052021.jpg" alt="Loxam Formation" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+    <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.1);"></div>
+  </div>
+
+  <!-- Contenu du hero -->
+  <div class="hero-content" style="position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; padding: 2rem; text-align: center;">
+    <h1 class="fade-in" style="font-size: 3.5rem; font-weight: 800; color: white; margin-bottom: 2rem; text-shadow: 0 2px 8px rgba(0,0,0,0.3); font-family: sans-serif;">
+      Trouvez votre prochaine formation
+    </h1>
+
+    <!-- Barre de recherche intégrée au hero -->
+    <div class="fade-in" style="animation-delay: 0.2s; width: 100%; max-width: 550px; margin-bottom: 2rem;">
+      <div style="position: relative;">
+        <input type="text" id="hero-search-input" placeholder="Rechercher"
+          style="width: 100%; padding: 1rem 3rem 1rem 1.25rem; border: none; border-radius: 0.5rem; font-size: 1rem; background: white; color: #333; box-shadow: 0 4px 12px rgba(0,0,0,0.2); outline: none;"
+          onkeydown="if(event.key === 'Enter') handleHeroSearchSubmit(this.value)">
+        <button onclick="handleHeroSearchSubmit(document.getElementById('hero-search-input').value)" style="position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 0.5rem;">
+          <svg style="width: 1.25rem; height: 1.25rem; color: #999;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bouton CTA -->
+    <div class="fade-in" style="animation-delay: 0.4s;">
+      <button onclick="goToCatalogue()" class="btn btn-default"
+        style="font-size: 1rem; padding: 0.875rem 2rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: 2px solid white; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 0.75rem;">
+        <svg style="width: 1.25rem; height: 1.25rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        Voir toutes les formations
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Section "Votre sécurité Notre priorité" -->
+<div style="background: white; padding: 4rem 2rem; text-align: center;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-size: 2rem; font-weight: 700; color: hsl(var(--foreground)); margin-bottom: 1rem;">
+      Votre sécurité <span style="color: hsl(var(--primary));">Notre priorité</span>
+    </h2>
+  </div>
+</div>
+
+<!-- Bandeau "Chaque jour, Loxam vous accompagne vers la réussite" -->
+<div style="background: hsl(var(--primary)); padding: 0; margin: 0 auto; max-width: 900px; border-radius: 0.25rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15); position: relative; z-index: 10;">
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 2.5rem 4rem;">
+    <div style="flex: 1; text-align: left;">
+      <p style="color: white; font-size: 1.35rem; font-weight: 700; margin: 0 0 0.5rem 0;">
+        Chaque jour, Loxam vous accompagne vers la réussite
+      </p>
+      <p style="color: rgba(255,255,255,0.9); font-size: 0.75rem; margin: 0; line-height: 1.4;">
+        *Taux de réussite moyen observé sur nos formations certifiantes mis à jour au <span id="dynamic-success-date"></span>.
+      </p>
+    </div>
+    <div style="text-align: center; padding-left: 3rem;">
+      <div style="font-size: 4.5rem; font-weight: 800; color: white; line-height: 1;"><span id="dynamic-success-rate">--</span>%</div>
+      <div style="font-size: 0.85rem; color: white; font-weight: 700; margin-top: 0.5rem;">Taux de réussite*</div>
+    </div>
+  </div>
+</div>
+
+<!-- Section "Nos formations les plus populaires" -->
+<div style="background: white; padding: 4rem 2rem;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-size: 1.75rem; font-weight: 700; color: hsl(var(--foreground)); text-align: center; margin-bottom: 3rem;">
+      Nos formations les plus populaires
+    </h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+      
+      <!-- Carte 1 -->
+      <div class="card formation-card text-center" style="box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid hsl(var(--border) / 0.5); border-radius: 0.5rem; overflow: hidden; display: flex; flex-direction: column; text-align: center;">
+        <div style="padding: 2rem 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; margin: 0 0 1rem; line-height: 1.4; color: hsl(var(--foreground));">CACES® R486 CAT B Débutant - Plateformes Élévatrices Mobiles de Personnes (P.E.M.P.)</h3>
+          <p style="font-size: 0.85rem; color: hsl(var(--muted-foreground)); margin: 0; line-height: 1.5;">Conduire en sécurité une PEMP</p>
+        </div>
+      </div>
+
+      <!-- Carte 2 -->
+      <div class="card formation-card text-center" style="box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid hsl(var(--border) / 0.5); border-radius: 0.5rem; overflow: hidden; display: flex; flex-direction: column; text-align: center;">
+        <div style="padding: 2rem 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; margin: 0 0 1rem; line-height: 1.4; color: hsl(var(--foreground));">CACES® R489 Cat.3 + 1A Débutant - Chariot élévateur à conducteur porté</h3>
+          <p style="font-size: 0.85rem; color: hsl(var(--muted-foreground)); margin: 0; line-height: 1.5;">Conduire en sécurité un chariot élévateur à conducteur porté</p>
+        </div>
+      </div>
+
+      <!-- Carte 3 -->
+      <div class="card formation-card text-center" style="box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid hsl(var(--border) / 0.5); border-radius: 0.5rem; overflow: hidden; display: flex; flex-direction: column; text-align: center;">
+        <div style="padding: 2rem 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; margin: 0 0 1rem; line-height: 1.4; color: hsl(var(--foreground));">CACES® R482 - Débutant - Engins de chantier Cat F</h3>
+          <p style="font-size: 0.85rem; color: hsl(var(--muted-foreground)); margin: 0; line-height: 1.5;">Conduire un engin de chantier dans le respect des règles de sécurité</p>
+        </div>
+      </div>
+
+      <!-- Carte 4 -->
+      <div class="card formation-card text-center" style="box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid hsl(var(--border) / 0.5); border-radius: 0.5rem; overflow: hidden; display: flex; flex-direction: column; text-align: center;">
+        <div style="padding: 2rem 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; margin: 0 0 1rem; line-height: 1.4; color: hsl(var(--foreground));">Travail en hauteur - Port du harnais</h3>
+          <p style="font-size: 0.85rem; color: hsl(var(--muted-foreground)); margin: 0; line-height: 1.5;">Évoluer en sécurité et se prémunir du risque de chute. Savoir vérifier et utiliser son E.P.I.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align: center;">
+      <button onclick="goToCatalogue()" class="btn btn-default"
+        style="padding: 0.75rem 2.5rem; font-size: 1rem; border-radius: 0.25rem;">
+        Tout voir
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Section "Les avantages de notre organisme de formation" -->
+<div style="background: hsl(var(--muted) / 0.3); padding: 4rem 2rem;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-size: 1.75rem; font-weight: 700; color: hsl(var(--foreground)); text-align: center; margin-bottom: 3rem;">
+      Les avantages de notre organisme de formation
+    </h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem;">
+      <!-- Avantage 1 -->
+      <div>
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: hsl(var(--primary)); margin-bottom: 0.75rem;">
+          La réactivité de notre Guichet Unique
+        </h4>
+        <p style="font-size: 0.85rem; color: hsl(var(--muted-foreground)); line-height: 1.6;">
+          Un interlocuteur unique vous conseille et vous accompagne de l'étude de vos besoins à la réception de l'attestation définitive de la formation. Nos équipes prennent en charge l'ensemble des démarches administratives.
+        </p>
+      </div>
+
+      <!-- Avantage 2 -->
+      <div>
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: hsl(var(--primary)); margin-bottom: 0.75rem;">
+          Des matériels récents et des sites conformes
+        </h4>
+        <p style="font-size: 0.85rem; color: hsl(var(--muted-foreground)); line-height: 1.6;">
+          Nos formations utilisent des matériels récents et performants. Les stagiaires bénéficient d'une large gamme de machines et d'accessoires adaptée à l'enseignement. L'équipement complet des sites permet une progression pédagogique adaptée.
+        </p>
+      </div>
+
+      <!-- Avantage 3 -->
+      <div>
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: hsl(var(--primary)); margin-bottom: 0.75rem;">
+          Des formations de qualité
+        </h4>
+        <p style="font-size: 0.85rem; color: hsl(var(--muted-foreground)); line-height: 1.6;">
+          Nos formations mêlent à la fois théorie et pratique, en proposant des contenus pédagogiques de qualité, avec des groupes restreints de 2 à 6 stagiaires par session. Nos supports pédagogiques sont complets et mis à jour régulièrement. Nos formateurs compétents et qualifiés peuvent également concevoir des solutions d'enseignements sur mesure.
+        </p>
+      </div>
+
+      <!-- Avantage 4 -->
+      <div>
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: hsl(var(--primary)); margin-bottom: 0.75rem;">
+          Des formations partout en France
+        </h4>
+        <p style="font-size: 0.85rem; color: hsl(var(--muted-foreground)); line-height: 1.6;">
+          Notre réseau d'organismes de formation partenaires nous permet de sélectionner la formation adaptée à vos besoins partout en France. Nos sessions peuvent être organisées dans nos agences ou sur vos sites.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section Qualiopi -->
+<div style="background: white; padding: 4rem 2rem;">
+  <div style="max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 3rem;">
+    <p style="font-size: 0.95rem; color: hsl(var(--foreground)); line-height: 1.6; max-width: 400px; margin: 0; font-weight: 500;">
+      Loxam Formation, est certifié dans la catégorie "Actions de Formation" depuis janvier 2022.
+    </p>
+    <img src="./Assets/3DX-internet_Logo_certification_qualiopi.png" alt="Certification Qualiopi" style="max-height: 110px; object-fit: contain;">
+  </div>
+</div>
+
+<!-- Script pour gérer la recherche hero -->
+<script>
+// Recherche depuis le hero → redirige vers le catalogue avec le terme de recherche
+function handleHeroSearch(value) {
+  if (value.length >= 2) {
+    goToCatalogue();
+    // Injecter la valeur dans le champ de recherche du catalogue
+    setTimeout(() => {
+      const catalogueSearch = document.querySelector('#catalogue-view input[type="text"]');
+      if (catalogueSearch) {
+        catalogueSearch.value = value;
+        catalogueSearch.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }, 100);
+  }
+}
+</script>

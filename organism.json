@@ -1,0 +1,10 @@
+{
+  "nomOrganisme": "Loxam Formation",
+  "logoUrl": "./Assets/logo-sticky-loxam-formation-retina.png",
+  "couleurPrincipale": "#DC2626",
+  "telephone": "01 30 29 63 00",
+  "email": "contact@loxam-formation.fr",
+  "emailDestination": "contact@loxam-formation.fr",
+  "adresse": "256 rue Nicolas Ledoux, 77550 Moissy-Cramayel",
+  "moduladmin": true
+}
