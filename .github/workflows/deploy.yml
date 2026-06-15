@@ -28,7 +28,8 @@ jobs:
           sudo apt-get install -y sshpass lftp
           lftp -u "$SFTP_USER","$SFTP_PASSWORD" -p "$SFTP_PORT" sftp://"$SFTP_HOST" <<EOF
           set sftp:connect-program "ssh -o StrictHostKeyChecking=no"
-          set sftp:set-permissions false
+          set xfer:set-permissions false
+          set cmd:fail-exit false
           mirror --reverse --delete --verbose \
             --exclude ^\.git/ \
             --exclude ^export_formation\.json$ \
