@@ -25,7 +25,9 @@ jobs:
           SFTP_PORT: ${{ secrets.SFTP_PORT }}
           SFTP_PATH: ${{ secrets.SFTP_PATH }}
         run: |
-          sudo apt-get install -y sshpass
-          sshpass -p "$SFTP_PASSWORD" sftp -o StrictHostKeyChecking=no -P "$SFTP_PORT" "$SFTP_USER@$SFTP_HOST" <<EOF
-          put -r . $SFTP_PATH
+          sudo apt-get install -y sshpass lftp
+          lftp -u "$SFTP_USER","$SFTP_PASSWORD" -p "$SFTP_PORT" sftp://"$SFTP_HOST" <<EOF
+          set sftp:connect-program "ssh -o StrictHostKeyChecking=no"
+          mirror --reverse --delete --verbose . $SFTP_PATH
+          bye
           EOF
