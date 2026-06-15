@@ -1706,19 +1706,20 @@ function injectOrganismInfo() {
             - Solution de gestion pour les organismes de formation
           </p>
           
-          <!-- Liens pages custom (Footer) -->
-          ${(() => {
-            const footerPages = getFooterPages();
-            if (footerPages.length === 0) return '';
-            return `
+          <!-- Liens pages custom (Footer) + CGV -->
           <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
-            ${footerPages.map(page => `
-              <button onclick="openCustomPage('${page.slug}')" style="color: hsl(var(--muted-foreground)); font-size: 0.875rem; transition: color 0.2s;" onmouseover="this.style.color='hsl(var(--primary))'" onmouseout="this.style.color='hsl(var(--muted-foreground))'">
-                ${page.label}
-              </button>
-            `).join('')}
-          </div>`;
-          })()}
+            ${(() => {
+              const footerPages = getFooterPages();
+              return footerPages.map(page => `
+                <button onclick="openCustomPage('${page.slug}')" style="color: hsl(var(--muted-foreground)); font-size: 0.875rem; transition: color 0.2s;" onmouseover="this.style.color='hsl(var(--primary))'" onmouseout="this.style.color='hsl(var(--muted-foreground))'">
+                  ${page.label}
+                </button>
+              `).join('');
+            })()}
+            <a href="./Documents/CGV.pdf" target="_blank" rel="noopener noreferrer" style="color: hsl(var(--muted-foreground)); font-size: 0.875rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='hsl(var(--primary))'" onmouseout="this.style.color='hsl(var(--muted-foreground))'">
+              Nos CGV
+            </a>
+          </div>
         </div>
       </div>
     `;
