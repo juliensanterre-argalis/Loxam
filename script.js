@@ -762,7 +762,8 @@ async function handleLocalConfig() {
     await loadCustomPage('home', localConfig.homePage, 'home-view');
 
     // Afficher la vue accueil par défaut au lieu du catalogue
-    toggleCustomView('home-view');
+    toggleCustomView('home-view', false);
+    history.replaceState({ viewId: 'home-view' }, '', '/');
     return true; // Indique qu'une page d'accueil custom a été chargée
   }
 
@@ -840,7 +841,14 @@ async function loadCustomPage(slug, fileUrl, targetContainerId) {
 }
 
 // Afficher une vue personnalisée
-function toggleCustomView(viewId) {
+// Mapping viewId → chemin URL
+const VIEW_URLS = {
+  'home-view': '/',
+  'catalogue-view': '/catalogue',
+  'calendrier-view': '/calendrier',
+};
+
+function toggleCustomView(viewId, pushUrl = true) {
   // Masquer toutes les vues connues
   const views = [
     'home-view', 'catalogue-view', 'produit-view',
@@ -859,24 +867,31 @@ function toggleCustomView(viewId) {
     target.classList.remove('hidden');
     window.scrollTo(0, 0);
   }
+
+  // Mettre à jour l'URL sans recharger la page
+  if (pushUrl) {
+    const url = VIEW_URLS[viewId] || null;
+    if (url) history.pushState({ viewId }, '', url);
+  }
 }
 
-// Navigation vers l'accueil
 // Navigation vers l'accueil
 function goToHome() {
   if (localConfig && localConfig.homePage) {
     toggleCustomView('home-view');
+    history.pushState({ viewId: 'home-view' }, '', '/');
   } else {
-    // Si pas de home custom, on affiche le catalogue (accueil par défaut)
     toggleCustomView('catalogue-view');
     renderCatalogue(formationsData);
+    history.pushState({ viewId: 'catalogue-view' }, '', '/catalogue');
   }
 }
 
 // Navigation vers le catalogue
 function goToCatalogue() {
-  toggleCustomView('catalogue-view');
+  toggleCustomView('catalogue-view', false);
   renderCatalogue(formationsData);
+  history.pushState({ viewId: 'catalogue-view' }, '', '/catalogue');
 }
 
 function navigateToCatalogue() {
@@ -992,7 +1007,7 @@ function buildCustomPagesMenuHTML() {
 }
 
 // Ouvrir une page personnalisée (depuis le menu)
-async function openCustomPage(slug) {
+async function openCustomPage(slug, pushUrl = true) {
   const pageConfig = findPageConfig(slug);
   if (!pageConfig || !pageConfig.file) return;
 
@@ -1001,12 +1016,66 @@ async function openCustomPage(slug) {
   if (!container) {
     container = document.createElement('div');
     container.id = 'custom-page-view';
-    container.className = 'hidden p-6 max-w-7xl mx-auto'; // Style de base
+    container.className = 'hidden p-6 max-w-7xl mx-auto';
     document.querySelector('main').appendChild(container);
   }
 
   await loadCustomPage(slug, pageConfig.file, 'custom-page-view');
-  toggleCustomView('custom-page-view');
+  toggleCustomView('custom-page-view', false);
+
+  if (pushUrl) {
+    history.pushState({ viewId: 'custom-page-view', slug }, '', `/${slug}`);
+  }
+}
+
+// Router : naviguer vers la vue correspondant au pathname
+async function handleInitialRoute() {
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+
+  if (path === '/' || path === '') return false;
+
+  if (path === '/catalogue') {
+    toggleCustomView('catalogue-view', false);
+    renderCatalogue(formationsData);
+    return true;
+  }
+
+  if (path === '/calendrier') {
+    toggleCustomView('calendrier-view', false);
+    renderCalendrierView();
+    return true;
+  }
+
+  // Page custom (ex: /notre-centre-de-formation)
+  const slug = path.replace(/^\//, '');
+  const pageConfig = findPageConfig(slug);
+  if (pageConfig && pageConfig.file) {
+    await openCustomPage(slug, false);
+    return true;
+  }
+
+  return false;
+}
+
+// Gestion du bouton retour/avance du navigateur
+async function handlePopState(event) {
+  const state = event.state;
+  if (!state) {
+    goToHome();
+    return;
+  }
+
+  if (state.viewId === 'custom-page-view' && state.slug) {
+    await openCustomPage(state.slug, false);
+  } else if (state.viewId === 'catalogue-view') {
+    toggleCustomView('catalogue-view', false);
+    renderCatalogue(formationsData);
+  } else if (state.viewId === 'calendrier-view') {
+    toggleCustomView('calendrier-view', false);
+    renderCalendrierView();
+  } else if (state.viewId === 'home-view') {
+    toggleCustomView('home-view', false);
+  }
 }
 
 // Initialisation de l'application
@@ -1041,11 +1110,17 @@ async function init() {
     const customHomeLoaded = await handleLocalConfig();
     console.log('🏠 Custom home loaded?', customHomeLoaded);
 
-    // 7. Afficher le catalogue (seulement si pas de home custom)
-    if (!customHomeLoaded) {
+    // 7. Router : naviguer vers la vue correspondant à l'URL courante
+    const routed = await handleInitialRoute();
+
+    // 8. Afficher le catalogue (seulement si pas de home custom et pas de route détectée)
+    if (!customHomeLoaded && !routed) {
       console.log('📋 Rendering catalogue...');
       renderCatalogue(formationsData);
     }
+
+    // 9. Gestion du bouton retour/avance
+    window.addEventListener('popstate', handlePopState);
 
   } catch (error) {
     console.error('Erreur lors de l\'initialisation:', error);
@@ -3135,10 +3210,8 @@ function filterByHierarchy(type, value) {
 }
 
 function goToCalendar() {
-  // Masquer les autres vues via toggleCustomView pour gérer aussi les vues custom
-  toggleCustomView('calendrier-view');
-
-  // Rendre la vue calendrier
+  toggleCustomView('calendrier-view', false);
+  history.pushState({ viewId: 'calendrier-view' }, '', '/calendrier');
   renderCalendrierView();
 }
 

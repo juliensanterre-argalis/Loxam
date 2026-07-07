@@ -1,4 +1,11 @@
-Options -Indexes
+Options -Indexes -MultiViews
+RewriteEngine On
+RewriteBase /
+
+# SPA routing : rediriger vers index.html sauf fichiers/dossiers existants
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
 
 # Gzip compression
 <IfModule mod_deflate.c>
