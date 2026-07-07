@@ -1054,7 +1054,9 @@ async function handleInitialRoute() {
     return true;
   }
 
-  return false;
+  // URL inconnue → accueil
+  goToHome();
+  return true;
 }
 
 // Gestion du bouton retour/avance du navigateur
