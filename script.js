@@ -879,6 +879,17 @@ function goToCatalogue() {
   renderCatalogue(formationsData);
 }
 
+function navigateToCatalogue() {
+  goToCatalogue();
+}
+
+function navigateToSessions() {
+  if (sessionsData && sessionsData.length > 0) {
+    goToCalendar();
+  } else {
+    goToHome();
+  }
+}
 
 // Rechercher une page dans la configuration locale (y compris dans les children)
 function findPageConfig(slug) {
