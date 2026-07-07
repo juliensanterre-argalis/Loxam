@@ -1030,7 +1030,7 @@ async function openCustomPage(slug, pushUrl = true) {
 
 // Router : naviguer vers la vue correspondant au pathname
 async function handleInitialRoute() {
-  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
 
   if (path === '/' || path === '') return false;
 

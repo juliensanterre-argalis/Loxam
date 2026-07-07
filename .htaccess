@@ -2,6 +2,13 @@ Options -Indexes -MultiViews
 RewriteEngine On
 RewriteBase /
 
+# Redirect CGV vers le PDF
+RewriteRule ^cgv/?$ /Documents/CGV.pdf [R=301,L]
+
+# Supprimer le slash final (sauf racine) pour URLs canoniques
+RewriteCond %{REQUEST_URI} ^/(.+)/$
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
 # SPA routing : rediriger vers index.html sauf fichiers/dossiers existants et assets
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
