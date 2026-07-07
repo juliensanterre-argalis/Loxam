@@ -2,9 +2,10 @@ Options -Indexes -MultiViews
 RewriteEngine On
 RewriteBase /
 
-# SPA routing : rediriger vers index.html sauf fichiers/dossiers existants
+# SPA routing : rediriger vers index.html sauf fichiers/dossiers existants et assets
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(js|css|json|php|png|jpg|jpeg|gif|svg|pdf|ico|woff|woff2|ttf|eot|map)$ [NC]
 RewriteRule ^ index.html [L]
 
 # Gzip compression
