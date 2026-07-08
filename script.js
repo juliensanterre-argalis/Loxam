@@ -1062,8 +1062,16 @@ async function handleInitialRoute() {
 // Gestion du bouton retour/avance du navigateur
 async function handlePopState(event) {
   const state = event.state;
-  if (!state) {
-    goToHome();
+
+  // Ne jamais appeler pushState/goToHome ici — on est dans un événement popstate,
+  // le navigateur gère déjà l'URL. On affiche juste la bonne vue.
+  if (!state || state.viewId === 'home-view') {
+    if (localConfig && localConfig.homePage) {
+      toggleCustomView('home-view', false);
+    } else {
+      toggleCustomView('catalogue-view', false);
+      renderCatalogue(formationsData);
+    }
     return;
   }
 
@@ -1075,8 +1083,6 @@ async function handlePopState(event) {
   } else if (state.viewId === 'calendrier-view') {
     toggleCustomView('calendrier-view', false);
     renderCalendrierView();
-  } else if (state.viewId === 'home-view') {
-    toggleCustomView('home-view', false);
   }
 }
 
@@ -1967,7 +1973,7 @@ function searchFormations(formations, query) {
 // Afficher le catalogue
 function renderCatalogue(formations) {
   // Afficher la vue catalogue via toggleCustomView
-  toggleCustomView('catalogue-view');
+  toggleCustomView('catalogue-view', false);
 
   const catalogueView = document.getElementById('catalogue-view');
 
@@ -2491,7 +2497,7 @@ function showFormationDetail(formationId) {
   }
 
   // Masquer toutes les autres vues, afficher la vue produit
-  toggleCustomView('produit-view');
+  toggleCustomView('produit-view', false);
 
   const produitView = document.getElementById('produit-view');
 
@@ -3802,7 +3808,7 @@ function showSessionDetail(sessionReference) {
   }
 
   // Masquer les autres vues et afficher session-detail-view
-  toggleCustomView('session-detail-view');
+  toggleCustomView('session-detail-view', false);
 
   // Rendre le détail de la session
   renderSessionDetail(session, formation);
