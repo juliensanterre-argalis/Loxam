@@ -10,11 +10,59 @@
 
   <div class="max-w-4xl mx-auto px-4 mt-12 text-sm text-muted-foreground">
 
-    <!-- Images masonry / flex layout -->
+    <style>
+      .img-tooltip-wrap {
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.375rem;
+      }
+      .img-tooltip-wrap img {
+        display: block;
+        width: 100%;
+        height: 12rem;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      .img-tooltip-wrap:hover img {
+        transform: scale(1.04);
+      }
+      .img-tooltip-wrap .tooltip-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(179, 27, 32, 0.82);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .img-tooltip-wrap:hover .tooltip-overlay {
+        opacity: 1;
+      }
+      .img-tooltip-wrap .tooltip-overlay p {
+        color: white;
+        font-size: 0.72rem;
+        font-weight: 500;
+        text-align: center;
+        line-height: 1.5;
+      }
+    </style>
+
+    <!-- Images avec tooltip au survol -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-      <img src="Assets/Realite-virtuelle-2-e1619185057537.png" alt="Call center" class="rounded object-cover h-48 w-full shadow-sm">
-      <img src="Assets/salle-de-formation-1.png" alt="Salle de formation" class="rounded object-cover h-48 w-full shadow-sm">
-      <img src="Assets/plateau-techniques-4.png" alt="Plateaux techniques" class="rounded object-cover h-48 w-full shadow-sm">
+      <div class="img-tooltip-wrap shadow-sm">
+        <img src="Assets/Realite-virtuelle-2-e1619185057537.png" alt="Réalité virtuelle">
+        <div class="tooltip-overlay"><p>Des modules de formation en réalité virtuelle pour les Plateformes Élévatrices Mobiles de Personnes (PEMP) ont été conçus par nos experts. La réalité virtuelle offre un confort d'apprentissage et permet d'appréhender et d'évaluer l'utilisation des PEMP dans un environnement sûr et contrôlé.</p></div>
+      </div>
+      <div class="img-tooltip-wrap shadow-sm">
+        <img src="Assets/salle-de-formation-1.png" alt="Salle de formation">
+        <div class="tooltip-overlay"><p>Contenu pédagogique : des supports pédagogiques variés, un équilibre entre théorie et pratique, des connaissances adaptées à la famille d'engins concernée, des petits groupes de 2 à 6 stagiaires et des formateurs qualifiés font la force de nos formations.</p></div>
+      </div>
+      <div class="img-tooltip-wrap shadow-sm">
+        <img src="Assets/plateau-techniques-4.png" alt="Plateaux techniques">
+        <div class="tooltip-overlay"><p>Les plateformes de formation et les matériels sont conformes aux exigences du référentiel CACES® 2020 et des réglementations. Des matériels récents et des équipements complets et fiables vous assurent un environnement propice à l'apprentissage. Nos plateaux techniques reproduisent les conditions réelles de chantier.</p></div>
+      </div>
     </div>
 
     <p class="mb-4 leading-relaxed">

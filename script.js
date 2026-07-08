@@ -878,10 +878,10 @@ function toggleCustomView(viewId, pushUrl = true) {
 // Navigation vers l'accueil
 function goToHome() {
   if (localConfig && localConfig.homePage) {
-    toggleCustomView('home-view');
+    toggleCustomView('home-view', false);
     history.pushState({ viewId: 'home-view' }, '', '/');
   } else {
-    toggleCustomView('catalogue-view');
+    toggleCustomView('catalogue-view', false);
     renderCatalogue(formationsData);
     history.pushState({ viewId: 'catalogue-view' }, '', '/catalogue');
   }
